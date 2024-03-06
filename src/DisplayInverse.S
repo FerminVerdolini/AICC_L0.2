@@ -1,8 +1,9 @@
 /*
-    Escriba un programa en ensamblador de RISC-V que proyecte el valor de los
-    interruptores en los LEDs. Ese valor se mantiene durante un tiempo tras el cual los LEDs se
-    apagan, y se repite el proceso. El valor debe encenderse y apagarse lo suficientemente
-    lento como para que una persona pueda ver el parpadeo.
+    Escriba un programa en ensamblador de RISC-V que muestre el valor inverso 
+    de los interruptores en los LEDs. Por ejemplo, si los interruptores son (en binario):
+    01010101010101, entonces los LEDs deberían mostrar: 101010101010101010; si los
+    interruptores son: 1111000011110000, entonces en los LEDs debería aparecer:
+    0000111100001111; y así sucesivamente. Use DisplayInverse.S como nombre para el programa.
 */
 
 // memory-mapped I/O addresses
