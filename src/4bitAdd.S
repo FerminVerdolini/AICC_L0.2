@@ -26,12 +26,13 @@ main:
     li s0, 0x10             # Máscara para el bit 5 de los LEDs
 
     loop:
-        lw t2, 0(t0)        # Leer el valor de los interruptores
-        and t2, t2, 0x0F    # Tomar los 4 bits menos significativos
-        and t3, t2, 0xF0    # Tomar los 4 bits más significativos
-        srl t4, t3, 0x4     # Desplazar los 4 bits más significativos a la derecha
-        add t5, t3, t4      # Sumar los 4 bits menos significativos con los 4 bits más significativos
-        sw t5, 4(t0)        # Mostrar el resultado en los LEDs
-        # bge t5, 0x10, overflow # Si el resultado es mayor o igual a 16, encender el bit 5 de los LEDs
-        j loop              # Repetir el proceso
+        lw      t2, 0(t0)       # Leer el valor de los interruptores
+        srli    t2, t2, 16      # Desplazar 16 bits a la derecha para obtener solo los interruptores
+        and     t3, t2, 0x0F    # Tomar los 4 bits menos significativos. Se guardan en t3
+        and     t2, t2, 0xF0    # Tomar los 4 bits más significativos   
+        srli    t4, t2, 0x4     # Desplazar los 4 bits más significativos a la derecha
+        add     t5, t3, t4      # Sumar los 4 bits menos significativos con los 4 bits más significativos. Se guarda en t5
+        sw      t5, 4(t0)       # Mostrar el resultado en los LEDs. 
+        
+        j loop                  # Repetir el proceso
     

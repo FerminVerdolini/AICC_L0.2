@@ -11,27 +11,47 @@ main:
   li t1, 0xFFFF
 
   sw t1, 8(t0)  
+
+
+
+  li t4, 0xFFFF
+
+  li s3, 0
+  li s4, 1000000
+
 repeat:  
-  addi s0, zero, 0 # cantidad de led
-  addi s1, zero, 4(t0) # posicion del led
+  li s0, 1 # cantidad de led
+  li s1, 0x1 # posicion del led
+
+  li t2, 0x0001
+  li t3, 0x8000
 L0:
-  lw t2, s0 # cargo la cantidad de leds
-  sw t2, s1 # en la posicion del led
-
-  addi s1, s1, s2 # muevo un led a la derecha
   
-  bne s1, 8(t0), L0
+  sw s1, 4(t0) # en la posicion del led
+
+  slli s1, s1, 1     # muevo un led a la derecha
+  
+F0:
+  addi s3,s3,1  
+  bne s3,s4,F0
+  li s3,0
+
+  blt s1,t3, L0
 L1:
-  lw t2, s0 # cargo la cantidad de leds
-  sw t2, s1 # en la posicion del led
+  sw s1, 4(t0) # en la posicion del led
 
-  addi s1, s1, -1 # muevo los leds a la izquierda
+  srli s1, s1, 1     # muevo un led a la derecha
 
-  bne s1, 4(t0), L1
+F1:
+  addi s3,s3,1  
+  bne s3,s4,F1
+  li s3,0
 
-  addi s0, s0, 1 # agrego un led
-  
-  bne s0, 17, L0
+  bge s1,t2, L1
+  slli t2, t2, 1
+
+  slli s1, s1, 1
+  addi s1,s1, 1
+  bne s1, t4, L0
 
   j repeat
-
