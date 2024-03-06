@@ -31,4 +31,7 @@ L1:
 
   addi s0, s0, 1 # agrego un led
   
-  bne s0, 17, repeat 
+  bne s0, 17, L0
+
+  j repeat
+
